@@ -28,14 +28,11 @@ def read_tidal_data(filename):
     tide_data = tide_data.replace(-99, np.nan)
 
     return tide_data
-    
+
 def extract_single_year_remove_mean(year, data):
 
 
-
-
-
-    return 
+    return year_data
 
 
 def extract_section_remove_mean(start, end, data):
