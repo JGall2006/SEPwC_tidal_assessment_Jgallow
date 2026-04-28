@@ -13,10 +13,14 @@ import argparse
 
 def read_tidal_data(filename):
     tide_data = pd.read_csv(filename, skiprows=11, header=None)#first 11 rows is useless 
-    tide_data['Date'] = pd.to_datetime
-        tide_data[1]+''+tide_data[2],
-        format= '%d/%m/%y %H:%M:%S'
+
+    tide_data['Date'] = pd.to_datetime(
+        tide_data[1]+' '+tide_data[2],
+        format= '%d/%m/%y %H:%M:%S',)
         
+    tide_data = pd.tide_data.drop([0,1,2], axis=1)#drops, cycle, date, time. in
+    tide_data = pd.tide_data.rename(coumns= {3: "Sea Level""SL", 4:})
+    
 
     return
     
