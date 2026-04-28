@@ -12,6 +12,9 @@ import argparse
 
 
 def read_tidal_data(filename):
+    df = pd.read_csv(
+        filename,
+        skiprows=11,)
 
     return
     
