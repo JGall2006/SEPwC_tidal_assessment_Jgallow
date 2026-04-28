@@ -16,7 +16,7 @@ def read_tidal_data(filename):
 
     tide_data['Date'] = pd.to_datetime(
         tide_data[1]+' '+tide_data[2],
-        format= '%d/%m/%y %H:%M:%S',)
+        format= '%Y/%m/%d %H:%M:%S',)
 
     tide_data = pd.tide_data.drop([0,1,2], axis=1)#drops, cycle, date, time. in
     tide_data = pd.tide_data.rename(coulmns= {3: "Sea Level", 4:"Residuel"})
