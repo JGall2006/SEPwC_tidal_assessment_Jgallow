@@ -12,9 +12,11 @@ import argparse
 
 
 def read_tidal_data(filename):
-    df = pd.read_csv(
-        filename,
-        skiprows=11,)
+    tide_data = pd.read_csv(filename, skiprows=11, header=None)#first 11 rows is useless 
+    tide_data['Date'] = pd.to_datetime
+        tide_data[1]+''+tide_data[2],
+        format= '%d/%m/%y %H:%M:%S'
+        
 
     return
     
