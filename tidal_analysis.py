@@ -12,23 +12,28 @@ import argparse
 
 
 def read_tidal_data(filename):
-    tide_data = pd.read_csv(filename, skiprows=11, header=None)#first 11 rows is useless 
+    tide_data = pd.read_csv(filename, skiprows=11, header=None, sep=r'\s+')
+#first 11 rows are header information so unessisary
 
     tide_data['Date'] = pd.to_datetime(
         tide_data[1]+' '+tide_data[2],
         format= '%Y/%m/%d %H:%M:%S',)
 
-    tide_data = pd.tide_data.drop([0,1,2], axis=1)#drops, cycle, date, time. in
-    tide_data = pd.tide_data.rename(coulmns= {3: "Sea Level", 4:"Residuel"})
-    tide_data = pd.tide_data.set_index('Date')
-    tide_data['Sea Level'] = pd.to_numeric(tide_data['Sea Level'])
-    tide_data['Residuel'] = pd.to_numeric(tide_data['Residuel'])
+    tide_data = tide_data.drop([0,1,2], axis=1)#drops, cycle, date, time. in
+    tide_data = tide_data.rename(columns= {3: "Sea Level", 4:"Residuel"})
+    tide_data = tide_data.set_index('Date')
+    tide_data['Sea Level'] = pd.to_numeric(tide_data['Sea Level'], errors='coerce')
+    tide_data['Residuel'] = pd.to_numeric(tide_data['Residuel'], errors='coerce')
 
-    tide_data = tide_data.replace(-99,np.nan)
+    tide_data = tide_data.replace(-99, np.nan)
 
     return tide_data
     
 def extract_single_year_remove_mean(year, data):
+
+
+
+
 
     return 
 
