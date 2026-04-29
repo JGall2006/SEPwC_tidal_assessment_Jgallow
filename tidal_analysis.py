@@ -30,6 +30,9 @@ def read_tidal_data(filename):
     return tide_data
 
 def extract_single_year_remove_mean(year, data):
+    Start_year = str("Year") + "0101"
+    End_year = str("Year") + "1231"
+
 
 
     return year_data
