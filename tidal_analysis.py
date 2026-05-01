@@ -1,3 +1,6 @@
+"""copy write;
+Author - James Galloway"""
+
 # import the modules we need
 import pandas as pd
 import datetime
@@ -34,7 +37,7 @@ def extract_single_year_remove_mean(year, data):
     End_year = str('Year') + "1231"
 
     year_data = data.loc[Start_year:End_year].copy()
-    year_data_Mean = data['Sea Level'].mean()#calcualtes mean of SL
+    year_data_Mean = year.data['Sea Level'].mean()#calcualtes mean of SL
     year_data['Sea Level'] -= year_data_Mean
 
     return year_data
