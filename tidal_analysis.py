@@ -33,6 +33,10 @@ def extract_single_year_remove_mean(year, data):
     Start_year = str("Year") + "0101"
     End_year = str("Year") + "1231"
 
+    year_data = tide_data.loc[Start_year:End_year].copy()
+    year_data = tide_data['Sea Level'].mean()#calcualtes mean of SL
+    year data = tide_data
+    
 
 
     return year_data
