@@ -22,8 +22,8 @@ def read_tidal_data(filename):
         tide_data[1]+' '+tide_data[2],
         format= '%Y/%m/%d %H:%M:%S',)
 
-    tide_data = tide_data.drop([0,1,2], axis=1)#drops, cycle, date, time. in
-    tide_data = tide_data.rename(columns= {3: "Sea Level", 4:"Residuel"})
+    tide_data = tide_data.drop([0,1], axis=1)#drops, cycle, date,. in
+    tide_data = tide_data.rename(columns= {2:"Time", 3: "Sea Level", 4:"Residuel"})
     tide_data = tide_data.set_index('Date')
     tide_data['Sea Level'] = pd.to_numeric(tide_data['Sea Level'], errors='coerce')
     tide_data['Residuel'] = pd.to_numeric(tide_data['Residuel'], errors='coerce')
