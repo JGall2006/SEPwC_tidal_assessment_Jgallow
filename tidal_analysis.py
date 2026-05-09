@@ -55,11 +55,17 @@ def join_data(data1, data2):
 
     return pd.concat([data1, data2]).sort_index()
 
-def sea_level_rise(data):
+def sea_level_rise(data): #this is the usual trend with SL
 
-    return
+    del_NaN = data.dropna(subset=['Sea Level'])
+    x = matplotlib.dates.date2num
+    y = del_nan['Sea Level']
+    
+    scipy.stats.linregress(x,y)
 
-def tidal_analysis(data, constituents, start_datetime):
+    return 
+
+def tidal_analysis(data, constituents, start_datetime): #this is where the m2... amp pha go
 
     return
 
