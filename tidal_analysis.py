@@ -44,9 +44,11 @@ def extract_single_year_remove_mean(year, data):
 
 
 def extract_section_remove_mean(start, end, data):
+    section = data.loc[start:end].copy()
+    section_mean = section['Sea Level'].mean()
+    section['Sea Level'] -= section_mean
 
-
-    return year_data
+    return section
 
 
 def join_data(data1, data2):
