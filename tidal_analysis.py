@@ -28,7 +28,7 @@ def read_tidal_data(filename):
     tide_data['Sea Level'] = pd.to_numeric(tide_data['Sea Level'], errors='coerce')
     tide_data['Residuel'] = pd.to_numeric(tide_data['Residuel'], errors='coerce')
 
-    tide_data = tide_data.replace(-99, np.nan)
+    tide_data = tide_data.replace([-99, -32767, -9999, -99.999], np.nan)
 
     return tide_data
 
