@@ -58,8 +58,14 @@ def join_data(data1, data2):
 def sea_level_rise(data): #this is the usual trend with SL
 
     del_NaN = data.dropna(subset=['Sea Level']) #deletes NaN values
+    print("rows:", len(del_NaN))
+    
     x = mdates.date2num(del_NaN.index)
     y = del_NaN['Sea Level'].values
+    print("first index:", del_NaN.index[0])
+    print("last index:", del_NaN.index[-1])
+
+    print("first x:",x[0], "last x:", x[-1], "range:", x[-1] - x[0])
 
     regression = sstats.linregress(x,y)
 
