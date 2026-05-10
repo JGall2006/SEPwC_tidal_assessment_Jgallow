@@ -9,7 +9,7 @@ import numpy as np
 import uptide
 import pytz
 import math
-from scipy import stats
+from scipy import stats as sstats
 import matplotlib.dates as mdates
 import argparse
 
@@ -28,7 +28,7 @@ def read_tidal_data(filename):
     tide_data['Sea Level'] = pd.to_numeric(tide_data['Sea Level'], errors='coerce')
     tide_data['Residuel'] = pd.to_numeric(tide_data['Residuel'], errors='coerce')
 
-    tide_data = tide_data.replace(-99, np.nan)
+    tide_data = tide_data.replace([-99, -32767, -9999, -99.999], np.nan)
 
     return tide_data
 
@@ -55,11 +55,17 @@ def join_data(data1, data2):
 
     return pd.concat([data1, data2]).sort_index()
 
-def sea_level_rise(data):
+def sea_level_rise(data): #this is the usual trend with SL
 
-    return
+    sl = data['Sea Level'].dropna()#drops all nan values in column
+    x = mdates.date2num(sl.index)
+    y = sl.values
+    regression = sstats.linregress(x,y)
+    print(regression.pvalue)
+    print(regression.slope)
+    return regression.slope, regression.pvalue
 
-def tidal_analysis(data, constituents, start_datetime):
+def tidal_analysis(data, constituents, start_datetime): #this is where the m2... amp pha go
 
     return
 
