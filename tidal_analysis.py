@@ -57,12 +57,12 @@ def join_data(data1, data2):
 
 def sea_level_rise(data): #this is the usual trend with SL
 
-    sl = data['Sea Level'].dropna()
-
+    sl = data['Sea Level'].dropna()#drops all nan values in column
     x = mdates.date2num(sl.index)
     y = sl.values
     regression = sstats.linregress(x,y)
-
+    print(regression.pvalue)
+    print(regression.slope)
     return regression.slope, regression.pvalue
 
 def tidal_analysis(data, constituents, start_datetime): #this is where the m2... amp pha go
