@@ -73,8 +73,10 @@ def tidal_analysis(data, constituents, start_datetime): #this is where the m2...
     times = index.values
     start = np.datetime64(start_datetime.replace(tzinfo=None))
     seconds_since = (times - start)/np.timedelta64(1, 's')
-    
-    
+
+    water_height = ['Sea Level'].values
+
+    amp, pha = uptide.harmonic_analysis(tide, water_height, seconds_since)
 
     return amp, pha
 
