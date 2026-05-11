@@ -67,7 +67,12 @@ def sea_level_rise(data): #this is the usual trend with SL
 
 def tidal_analysis(data, constituents, start_datetime): #this is where the m2... amp pha go
 
-    return
+    tide = uptide.Tides(constituents)
+    tide.set_initial_time(start_datetime)
+
+
+
+    return amp, pha
 
 def get_longest_contiguous_data(data):
 
