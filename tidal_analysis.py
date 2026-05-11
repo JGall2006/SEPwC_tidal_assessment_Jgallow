@@ -67,14 +67,15 @@ def sea_level_rise(data): #this is the usual trend with SL
 
 def tidal_analysis(data, constituents, start_datetime): #this is where the m2... amp pha go
 
+    sl = data.dropna(subset=['Sea Level'])
     tide = uptide.Tides(constituents)
     tide.set_initial_time(start_datetime)
 
-    times = index.values
+    times = sl.index.values
     start = np.datetime64(start_datetime.replace(tzinfo=None))
     seconds_since = (times - start)/np.timedelta64(1, 's')
 
-    water_height = ['Sea Level'].values
+    water_height = sl['Sea Level'].values
 
     amp, pha = uptide.harmonic_analysis(tide, water_height, seconds_since)
 
