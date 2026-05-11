@@ -70,7 +70,11 @@ def tidal_analysis(data, constituents, start_datetime): #this is where the m2...
     tide = uptide.Tides(constituents)
     tide.set_initial_time(start_datetime)
 
-
+    times = index.values
+    start = np.datetime64(start_datetime.replace(tzinfo=None))
+    seconds_since = (times - start)/np.timedelta64(1, 's')
+    
+    
 
     return amp, pha
 
