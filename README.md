@@ -135,3 +135,19 @@ also make sure the `class` name(s) are different to those in `test/test_tides.py
 
 You can also add extra functionality, but the command-line interface must pass
 the tests set.
+
+## additional notes
+
+Sea level function:
+
+Sea level regression test fails overall, due to the test expecting a slope value
+which my code doesnt reach, yet all other metrics within the test pass. The 
+slope obtained is very close to what the test expects.
+
+## additional function and test 
+
+
+
+
+
+
