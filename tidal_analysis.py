@@ -83,14 +83,14 @@ def tidal_analysis(data, constituents, start_datetime): #this is where the m2...
 
 def get_longest_contiguous_data(data):#longest unbroken data strech
 
-    grouping = data['Sea Level'].isna().cumsum()
+    grouping = data['Sea Level'].isna().cumsum()#for every nan, a number is assigned, all values inbetween are assigned the same value as the prvious nan, effectivly grouping
     
-    valid = data['Sea Level'].dropna()
+    valid = data.dropna(subset=['Sea Level']) #singles SL data out
+    valid_grouping = grouping.loc[valid.index]
     
+    longest = valid_grouping.value_counts().idxmax()
 
-
-
-    return 
+    return valid[valid_grouping == longest]
 
 
 def main(args_list=None):
