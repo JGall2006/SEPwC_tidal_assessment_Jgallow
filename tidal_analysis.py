@@ -81,7 +81,14 @@ def tidal_analysis(data, constituents, start_datetime): #this is where the m2...
 
     return amp, pha
 
-def get_longest_contiguous_data(data):
+def get_longest_contiguous_data(data):#longest unbroken data strech
+
+    grouping = data['Sea Level'].isna().cumsum()
+    
+    valid = data['Sea Level'].dropna()
+    
+
+
 
     return 
 
