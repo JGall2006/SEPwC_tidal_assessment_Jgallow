@@ -1,5 +1,8 @@
-"""copy write;
-Author - James Galloway"""
+"""
+Author - James Galloway
+
+Decription: This code completes tidal analysis on datasets provided by the 
+BODC, """
 
 # import the modules we need
 import pandas as pd
@@ -16,19 +19,32 @@ import argparse
 
 def read_tidal_data(filename):
     tide_data = pd.read_csv(filename, skiprows=11, header=None, sep=r'\s+')
-#first 11 rows are header information so unessisary
+#first 11 rows are header information unessisary so skipped
 
     tide_data['Date'] = pd.to_datetime(
         tide_data[1]+' '+tide_data[2],
         format= '%Y/%m/%d %H:%M:%S',)
 
     tide_data = tide_data.drop([0,1], axis=1)#drops, cycle, date,. in
-    tide_data = tide_data.rename(columns= {2:"Time", 3: "Sea Level", 4:"Residuel"})
+    tide_data = tide_data.rename(columns= {2:"Time", 3: "Sea Level", 4:"Residual"})
     tide_data = tide_data.set_index('Date')
-    tide_data['Sea Level'] = pd.to_numeric(tide_data['Sea Level'], errors='coerce')
-    tide_data['Residuel'] = pd.to_numeric(tide_data['Residuel'], errors='coerce')
 
-    tide_data = tide_data.replace([-99, -32767, -9999, -99.999], np.nan)
+    data_cols = ["Sea Level", "Residual"]
+
+    for col in data_cols:
+        tide_data[col] = tide_data[col].astype(str)
+
+        tide_data.loc[tide_data[col].str.contains(r"[MNmn]", na = False),col]=(
+             np.nan)#if value flagged with N or M, it is set nan
+
+        tide_data[col] = tide_data[col].str.replace(r"[Tt]","", regex=True)
+
+
+    tide_data['Sea Level'] = pd.to_numeric(tide_data['Sea Level'], errors='coerce')
+    tide_data['Residual'] = pd.to_numeric(tide_data['Residual'], errors='coerce')
+
+    for col in data_cols:
+        tide_data.loc[tide_data[col]<= -99, col] = np.nan #any error codes set null
 
     return tide_data
 
@@ -61,8 +77,8 @@ def sea_level_rise(data): #this is the usual trend with SL
     x = mdates.date2num(sl.index)
     y = sl.values
     regression = sstats.linregress(x,y)
-    print(regression.pvalue)
     print(regression.slope)
+    print(regression.pvalue)
     return regression.slope, regression.pvalue
 
 def tidal_analysis(data, constituents, start_datetime): #this is where the m2... amp pha go
@@ -116,3 +132,26 @@ def main(args_list=None):
 
 if __name__ == '__main__':
     main()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
