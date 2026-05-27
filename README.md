@@ -136,18 +136,16 @@ also make sure the `class` name(s) are different to those in `test/test_tides.py
 You can also add extra functionality, but the command-line interface must pass
 the tests set.
 
-## additional notes
+## Set up and environment
 
-Sea level function:
+This project was completed on a Mac, here is how to setup the correct environment (bash)
 
-Sea level regression test fails overall, due to the test expecting a slope value
-which my code doesnt reach, yet all other metrics within the test pass. The 
-slope obtained is very close to what the test expects.
+python3 -m venv venv
+source venv/bin/activate
+
+pip install matplotlib pandas numpy scipy pytz uptide
+
+
+
 
 ## additional function and test 
-
-
-
-
-
-
