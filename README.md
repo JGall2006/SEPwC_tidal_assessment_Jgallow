@@ -147,7 +147,7 @@ pip install matplotlib pandas numpy scipy pytz uptide
 
 ## How to run the code in terminal
 
-python3 tidall_analysis.py data/(whitby,dover,aberdeen) -v
+python3 tidal_analysis.py data/(whitby,dover,aberdeen) -v
 
 
 
