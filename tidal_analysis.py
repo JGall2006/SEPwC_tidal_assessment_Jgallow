@@ -11,7 +11,6 @@ import os
 import numpy as np
 import uptide
 import pytz
-import math
 from scipy import stats as sstats
 import matplotlib.dates as mdates
 import argparse
@@ -98,8 +97,8 @@ def tidal_analysis(data, constituents, start_datetime): #this is where the m2...
 
 def get_longest_contiguous_data(data):#longest unbroken data strech
 
-    grouping = data['Sea Level'].isna().cumsum()#for every nan, a number is assigned, all values inbetween are assigned the same value as the prvious nan, effectivly grouping
-    
+    grouping = data['Sea Level'].isna().cumsum()#cumsum groups contiguous data
+
     valid = data.dropna(subset=['Sea Level']) #singles SL data out
     valid_grouping = grouping.loc[valid.index]
     
