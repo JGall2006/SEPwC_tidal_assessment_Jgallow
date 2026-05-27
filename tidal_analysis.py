@@ -77,8 +77,7 @@ def sea_level_rise(data): #this is the usual trend with SL
     x = mdates.date2num(sl.index)
     y = sl.values
     regression = sstats.linregress(x,y)
-    print(regression.slope)
-    print(regression.pvalue)
+
     return regression.slope, regression.pvalue
 
 def tidal_analysis(data, constituents, start_datetime): #this is where the m2... amp pha go
@@ -127,15 +126,56 @@ def main(args_list=None):
     dirname = args.directory
     verbose = args.verbose
 
-    print("Add your code here to do things!")
-    
+    #print("Add your code here to do things!")
+
+    txt_files = sorted([os.path.join(dirname, f)
+                       for f in os.listdir(dirname)
+                       if f.endswith(".txt")])
+
+    if not txt_files:
+        if verbose:
+            print(f"error: No txt files found in '{dirname}'.")
+        return
+
+    if verbose:
+        print(f"processing target directory: {dirname}")
+        print(f"Found {len(txt_files)} data files compiling")
+        print("Stiching datasets by date")
+
+    combined_data = read_tidal_data(txt_files[0])
+    for extra_file in txt_files[1:]:
+        next_data = read_tidal_data(extra_file)
+        combined_data = join_data(combined_data, next_data)
+
+
+#Harmonic analysis 
+
+    constituents = ['M2','S2']
+    start = datetime.datetime(combined_data.index[0].year,1,1, tzinfo = pytz.utc)
+    amp, pha = tidal_analysis(combined_data,constituents,start)
+
+    amp = np.asarray(amp).flatten()
+    pha = np.asarray(pha).flatten()
+
+#Sl rise per annum
+
+    slope, p_value = sea_level_rise(combined_data)
+
+    location = os.path.basename(os.path.normpath(dirname))
+    analysis = "\n".join([
+        f"location: {location}",
+        f"M2 amp: {float(amp[0]):.4f} m phase: {float(pha[0]):.2f} deg",
+        f"S2 amp: {float(amp[1]):.4f} m phase: {float(pha[1]):.2f} deg",
+        f"Sea Level Rise Slope:{float(slope):.6f}",
+        f"p-value: {float(p_value):.6f}",])
+
+
+    if verbose:
+        print(analysis)
+
 
 if __name__ == '__main__':
     main()
-
-
-
-
 
 
 
