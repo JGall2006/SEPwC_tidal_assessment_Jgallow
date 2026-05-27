@@ -145,7 +145,9 @@ source venv/bin/activate
 
 pip install matplotlib pandas numpy scipy pytz uptide
 
+## How to run the code in terminal
+
+python3 tidall_analysis.py data/(whitby,dover,aberdeen) -v
 
 
 
-## additional function and test 
